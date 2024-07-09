@@ -30,15 +30,4 @@ class UserManager(BaseUserManager):
 class User(AbstractUser):
     username = models.CharField("Username", max_length=255, unique=True)
     email = models.EmailField('Email', unique=True)
-    is_online = models.BooleanField(default=False)
-    was_online_at = models.DateTimeField(auto_now=True)
     
-    
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    picture = models.ImageField(blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    friends = models.ManyToManyField('self', symmetrical=True, blank=True)
-    subscribed_for = models.ManyToManyField('self', blank=True, related_name='user_subscriptions')
-    subscribers = models.ManyToManyField('self', related_name='user_subscribers', blank=True)
